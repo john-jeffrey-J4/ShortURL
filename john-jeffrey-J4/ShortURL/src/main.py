@@ -39,7 +39,7 @@ def main(context):
             database_id="66694407002556133624",
             collection_id="666944250024f4a2b507"
         )
-        if path_param == "listall":
+        if path_param == "/listall":
             all_data_return = []
             for datum in all_data['documents']:
                 all_data_return.append({"original_url": datum.get(
