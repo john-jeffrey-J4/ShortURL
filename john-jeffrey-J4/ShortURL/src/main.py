@@ -29,11 +29,15 @@ def main(context):
     context.error("Hello, Errors!")
     databases = Databases(client)
     if context.req.method == "OPTIONS":
-        return context.res.set_headers({
-            'Access-Control-Allow-Origin': 'https://shortener-front-end-ten.vercel.app',
-            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        }).send('')
+        return context.res.send(
+            '',
+            204,
+            {
+                'Access-Control-Allow-Origin': 'https://shortener-front-end-ten.vercel.app',
+                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+                'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+            }
+        )
         
     # The `ctx.req` object contains the request data
     if context.req.method == "GET":
