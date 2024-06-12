@@ -35,7 +35,7 @@ def main(context):
         
         path_param = context.req.path
         context.log(path_param)
-        if path_param == "listall":
+        if not path_param:
             pass
         else:
             all_data = databases.list_documents(
@@ -44,12 +44,12 @@ def main(context):
             )
             
             for datum in all_data['documents']:
-                if datum.get('hashurl') == path_param:
+                if datum.get('hashurl') == path_param[1:]:
                     redirect_url = datum.get('originalurl')
                     context.log(redirect_url)
                     return context.res.redirect(f'{redirect_url}', 301)
 
-            return context.res.send("Hello, World!")
+        return context.res.send("Data not Found")
 
     if context.req.method == "POST":
         req_data = context.req.body
