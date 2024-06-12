@@ -1,8 +1,7 @@
 import hashlib
 from appwrite.client import Client
 from appwrite.services.databases import Databases
-import os
-
+import uuid
 
 # This is your Appwrite function
 # It's executed each time we get a request
@@ -59,7 +58,7 @@ def main(context):
         result = databases.create_document(
             database_id="66694407002556133624",
             collection_id="666944250024f4a2b507",
-            # document_id = '<DOCUMENT_ID>',
+            document_id =  str(uuid.uuid4().hex),
             data={"hashurl": full_shortened_url,
                   "originalurl": url_to_shorten},
             permissions=[
