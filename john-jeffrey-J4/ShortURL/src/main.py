@@ -37,13 +37,16 @@ def main(context):
                 },
             )
         shortened_url = hashlib.sha256(url_to_shorten.encode()).hexdigest()[:8]
-        base_url = "https://short.url/"
-        full_shortened_url = f"{base_url}{shortened_url}"
+        full_shortened_url = f"{shortened_url}"
+        dtype = type(shortened_url)
+        
+        
         
         return context.res.json(
             {
                 "original_url": url_to_shorten,
                 "shortened_url": full_shortened_url,
+                "dtype":dtype
             }
         )
 
