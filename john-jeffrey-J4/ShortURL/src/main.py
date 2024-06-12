@@ -36,7 +36,7 @@ def main(context):
             database_id=66694407002556133624,
             collection_id="666944250024f4a2b507"
         )
-        from datum in all_data['documents']:
+        for datum in all_data['documents']:
             context.log(f"{datum}")
 
         return context.res.send("Hello, World!")
