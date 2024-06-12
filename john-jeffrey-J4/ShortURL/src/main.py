@@ -1,4 +1,5 @@
 from appwrite.client import Client
+import hashlib
 import os
 
 
@@ -22,9 +23,30 @@ def main(context):
 
     # The `ctx.req` object contains the request data
     if context.req.method == "GET":
-        # Send a response with the res object helpers
-        # `ctx.res.send()` dispatches a string back to the client
-        return context.res.send("Hello, Ramji!")
+        url_to_shorten = context.req.query.get("url")
+
+        if not url_to_shorten:
+            return context.res.json(
+                {
+                    "error": "URL parameter is missing",
+                },
+                status_code=400
+            )
+
+        # Shorten the URL using a hash
+        shortened_url = hashlib.sha256(url_to_shorten.encode()).hexdigest()[:8]
+
+        # Construct the shortened URL (this is just an example)
+        base_url = "https://short.url/"
+        full_shortened_url = f"{base_url}{shortened_url}"
+
+        # Send the shortened URL back to the client
+        return context.res.json(
+            {
+                "original_url": url_to_shorten,
+                "shortened_url": full_shortened_url,
+            }
+        )
 
     # `ctx.res.json()` is a handy helper for sending JSON
     return context.res.json(
