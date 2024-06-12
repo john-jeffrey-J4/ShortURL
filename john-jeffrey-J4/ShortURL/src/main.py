@@ -30,7 +30,6 @@ def main(context):
                 {
                     "error": "URL parameter is missing",
                 },
-                status_code=400
             )
 
         # Shorten the URL using a hash
