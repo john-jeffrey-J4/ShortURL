@@ -24,11 +24,13 @@ def main(context):
     # The `ctx.req` object contains the request data
     if context.req.method == "GET":
         url_to_shorten = context.req.query_string
+        context.log(url_to_shorten)
+
         return context.res.json(
-                {
-                    "error": url_to_shorten,
-                },
-            )
+            {
+                "error": "Hello Bro",
+            },
+        )
 
         if not url_to_shorten:
             return context.res.json(
