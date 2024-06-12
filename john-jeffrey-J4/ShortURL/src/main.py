@@ -33,7 +33,7 @@ def main(context):
         # `ctx.res.send()` dispatches a string back to the client
         databases = Databases(client)
         all_data = databases.list_documents(
-            database_id=66694407002556133624,
+            database_id="66694407002556133624",
             collection_id="666944250024f4a2b507"
         )
         for datum in all_data['documents']:
