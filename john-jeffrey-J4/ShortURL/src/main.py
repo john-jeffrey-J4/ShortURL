@@ -32,18 +32,24 @@ def main(context):
     if context.req.method == "GET":
         # Send a response with the res object helpers
         # `ctx.res.send()` dispatches a string back to the client
+        
+        path_param = context.req.path
+        context.log(path_param)
+        if path_param == "listall":
+            pass
+        else:
+            all_data = databases.list_documents(
+                database_id="66694407002556133624",
+                collection_id="666944250024f4a2b507"
+            )
+            
+            for datum in all_data['documents']:
+                if datum.get('hashurl') == path_param:
+                    redirect_url = datum.get('originalurl')
+                    context.log(redirect_url)
+                    return context.res.redirect(f'{redirect_url}', 301)
 
-        all_data = databases.list_documents(
-            database_id="66694407002556133624",
-            collection_id="666944250024f4a2b507"
-        )
-        for datum in all_data['documents']:
-            if datum.get('hashurl') == '9d2b7e3d':
-                redirect_url = datum.get('originalurl')
-                context.log(redirect_url)
-                return context.res.redirect(f'{redirect_url}', 301)
-
-        return context.res.send("Hello, World!")
+            return context.res.send("Hello, World!")
 
     if context.req.method == "POST":
         req_data = context.req.body
