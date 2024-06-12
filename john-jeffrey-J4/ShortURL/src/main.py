@@ -112,7 +112,7 @@ def main(context):
             if datum.get('hashurl') == query_param_str:
                 context.log(datum)
                 return context.res.json({
-                    "data": datum.get('hashurl')
+                    "data": datum.get('$id')
                 })
         
     #     databases.update_document(
