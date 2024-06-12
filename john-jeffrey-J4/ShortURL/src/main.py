@@ -27,7 +27,7 @@ def main(context):
         # `ctx.res.send()` dispatches a string back to the client
         return context.res.send("Hello, World!")
     if context.req.method == "POST":
-        req_data = json.dumps(context.req.body)
+        req_data = context.req.body
         if "url" not in req_data:
              return context.res.json(
                 {
