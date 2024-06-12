@@ -26,12 +26,12 @@ def main(context):
 
     # If something goes wrong, log an error
     context.error("Hello, Errors!")
-
+    databases = Databases(client)
     # The `ctx.req` object contains the request data
     if context.req.method == "GET":
         # Send a response with the res object helpers
         # `ctx.res.send()` dispatches a string back to the client
-        databases = Databases(client)
+
         all_data = databases.list_documents(
             database_id="66694407002556133624",
             collection_id="666944250024f4a2b507"
@@ -43,7 +43,7 @@ def main(context):
                 return context.res.redirect(f'{redirect_url}', 301)
 
         return context.res.send("Hello, World!")
-    
+
     if context.req.method == "POST":
         req_data = context.req.body
         url_to_shorten = req_data['url']
@@ -55,6 +55,21 @@ def main(context):
             )
         shortened_url = hashlib.sha256(url_to_shorten.encode()).hexdigest()[:8]
         full_shortened_url = f"{shortened_url}"
+
+        result = databases.create_document(
+            database_id="66694407002556133624",
+            collection_id="666944250024f4a2b507",
+            # document_id = '<DOCUMENT_ID>',
+            data={"hashurl": full_shortened_url,
+                  "originalurl": url_to_shorten},
+            permissions=[
+                "read('any')",
+                "write('any')",
+                "create('any')",
+                "delete('any')"
+            ]
+        )
+        context.log(result)
 
         return context.res.json(
             {
