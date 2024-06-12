@@ -18,8 +18,8 @@ def main(context):
     client = Client()
     (client
      .set_endpoint('https://cloud.appwrite.io/v1')  # Your API Endpoint
-     .set_project('5df5acd0d48c2')  # Your project ID
-     .set_key('919c2d18fb5d4...a2ae413da83346ad2')  # Your secret API key
+     .set_project('666929470005a01fd522')  # Your project ID
+     .set_key('42b747d591fb0d006152c329021807af8eb2c05f77d44808fbc6c91e28ddc73d4987fc7c85d1e584c8da035a8d1babd931643095288c7f1fcef2c29105c6379b24f915ace30be0e79ab551144a8266406034cba6935cb6c9cc7b4dde519f69b4e2c775b4b9879cc89dafe352155929a6605ab726a15f21fe572444ec1fe0ab0d')  # Your secret API key
      )
     # You can log messages to the console
     context.log("Hello, Logs!")
