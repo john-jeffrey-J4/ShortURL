@@ -102,10 +102,10 @@ def main(context):
         
     if context.req.method == "PUT":
         query_param = context.req.query_string
-        context.log(query_param)
+        query_param_str = query_param[3:]
         return context.res.json(
             {
-                "data": f'{query_param}'
+                "data": f'{query_param_str}'
             }
         )
         
