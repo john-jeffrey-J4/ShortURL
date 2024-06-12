@@ -37,7 +37,9 @@ def main(context):
             collection_id="666944250024f4a2b507"
         )
         for datum in all_data['documents']:
-            context.log(f"{datum}")
+            if datum.get('hashurl') == '9d2b7e3d':
+                redirect_url = datum.get('orginalurl')
+                return context.res.redirect(redirect_url, 301)
 
         return context.res.send("Hello, World!")
     if context.req.method == "POST":
