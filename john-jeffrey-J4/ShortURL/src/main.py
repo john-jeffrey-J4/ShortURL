@@ -28,7 +28,7 @@ def main(context):
     # If something goes wrong, log an error
     context.error("Hello, Errors!")
     databases = Databases(client)
-    
+
     # The `ctx.req` object contains the request data
     if context.req.method == "GET":
         # Send a response with the res object helpers
@@ -99,11 +99,14 @@ def main(context):
                 "shortened_url": full_shortened_url,
             }
         )
-        
+
     if context.req.method == "PUT":
         query_param = context.req.query_string
         query_param_str = query_param[3:]
-        
+
+        req_data = context.req.body
+        name_to_change = req_data['name']
+
         all_data = databases.list_documents(
             database_id="66694407002556133624",
             collection_id="666944250024f4a2b507"
@@ -111,22 +114,22 @@ def main(context):
         for datum in all_data['documents']:
             if datum.get('hashurl') == query_param_str:
                 context.log(datum)
-                return context.res.json({
-                    "data": datum.get('$id')
-                })
-        
-    #     databases.update_document(
-    #     database_id = '<DATABASE_ID>',
-    #     collection_id = '<COLLECTION_ID>',
-    #     document_id = '<DOCUMENT_ID>',
-    #     data = {}, 
-    # )
+
+                databases.update_document(
+                    database_id='66694407002556133624',
+                    collection_id='666944250024f4a2b507',
+                    document_id=datum.get('$id'),
+                    data={"hashurl": name_to_change,
+                          "originalurl": datum.get('originalurl')},
+                )
+                return context.res.json({"hashurl": name_to_change,
+                                         "originalurl": datum.get('originalurl')})
+
         return context.res.json(
             {
                 "data": f'{query_param_str}'
             }
         )
-        
 
     # `ctx.res.json()` is a handy helper for sending JSON
     return context.res.json(
