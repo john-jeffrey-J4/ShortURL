@@ -103,6 +103,24 @@ def main(context):
     if context.req.method == "PUT":
         query_param = context.req.query_string
         query_param_str = query_param[3:]
+        
+        all_data = databases.list_documents(
+            database_id="66694407002556133624",
+            collection_id="666944250024f4a2b507"
+        )
+        for datum in all_data['documents']:
+            if datum.get('hashurl') == query_param_str:
+                context.log(datum)
+                context.res.json({
+                    "data": datum.get('hashurl')
+                })
+        
+        databases.update_document(
+        database_id = '<DATABASE_ID>',
+        collection_id = '<COLLECTION_ID>',
+        document_id = '<DOCUMENT_ID>',
+        data = {}, 
+    )
         return context.res.json(
             {
                 "data": f'{query_param_str}'
