@@ -99,6 +99,16 @@ def main(context):
                 "shortened_url": full_shortened_url,
             }
         )
+        
+    if context.req.method == "PUT":
+        query_param = context.req.query_string
+        context.log(query_param)
+        return context.res.json(
+            {
+                "data": f'{query_param}'
+            }
+        )
+        
 
     # `ctx.res.json()` is a handy helper for sending JSON
     return context.res.json(
