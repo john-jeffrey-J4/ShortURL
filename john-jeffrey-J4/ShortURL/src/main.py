@@ -39,6 +39,7 @@ def main(context):
         for datum in all_data['documents']:
             if datum.get('hashurl') == '9d2b7e3d':
                 redirect_url = datum.get('orginalurl')
+                context.log(redirect_url)
                 return context.res.redirect(f'{redirect_url}', 301)
 
         return context.res.send("Hello, World!")
