@@ -32,24 +32,31 @@ def main(context):
     if context.req.method == "GET":
         # Send a response with the res object helpers
         # `ctx.res.send()` dispatches a string back to the client
-        
+
         path_param = context.req.path
         context.log(path_param)
-        if not path_param:
-            pass
+        all_data = databases.list_documents(
+            database_id="66694407002556133624",
+            collection_id="666944250024f4a2b507"
+        )
+        if path_param == "listall":
+            all_data_return = []
+            for datum in all_data['documents']:
+                all_data_return.append({"original_url": datum.get(
+                    'originalurl'), "shortened_url": datum.get('originalurl')})
+
+            return context.res.json({
+                "data": all_data_return
+            })
         else:
-            all_data = databases.list_documents(
-                database_id="66694407002556133624",
-                collection_id="666944250024f4a2b507"
-            )
-            
+
             for datum in all_data['documents']:
                 if datum.get('hashurl') == path_param[1:]:
                     redirect_url = datum.get('originalurl')
                     context.log(redirect_url)
                     return context.res.redirect(f'{redirect_url}', 301)
 
-        return context.res.send("Data not Found")
+            return context.res.send("Data not Found")
 
     if context.req.method == "POST":
         req_data = context.req.body
