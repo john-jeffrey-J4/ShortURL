@@ -61,12 +61,6 @@ def main(context):
             document_id =  str(uuid.uuid4().hex),
             data={"hashurl": full_shortened_url,
                   "originalurl": url_to_shorten},
-            permissions=[
-                "read('any')",
-                "write('any')",
-                "create('any')",
-                "delete('any')"
-            ]
         )
         context.log(result)
 
