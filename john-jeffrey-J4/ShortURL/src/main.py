@@ -1,3 +1,4 @@
+import hashlib
 import json
 from appwrite.client import Client
 import os
@@ -28,15 +29,23 @@ def main(context):
         return context.res.send("Hello, World!")
     if context.req.method == "POST":
         req_data = context.req.body
+        url_to_shorten = req_data['url']
         if "url" not in req_data:
-             return context.res.json(
+            return context.res.json(
                 {
                     "error": "URL parameter is missing",
                 },
             )
-        return context.res.send(req_data['url'])
-    
-    
+        shortened_url = hashlib.sha256(url_to_shorten.encode()).hexdigest()[:8]
+        base_url = "https://short.url/"
+        full_shortened_url = f"{base_url}{shortened_url}"
+        
+        return context.res.json(
+            {
+                "original_url": url_to_shorten,
+                "shortened_url": full_shortened_url,
+            }
+        )
 
     # `ctx.res.json()` is a handy helper for sending JSON
     return context.res.json(
@@ -47,6 +56,3 @@ def main(context):
             "getInspired": "https://builtwith.appwrite.io",
         }
     )
-    
-    
-    
