@@ -28,17 +28,7 @@ def main(context):
     # If something goes wrong, log an error
     context.error("Hello, Errors!")
     databases = Databases(client)
-    if context.req.method == "OPTIONS":
-        return context.res.send(
-            '',
-            204,
-            {
-                'Access-Control-Allow-Origin': 'https://shortener-front-end-ten.vercel.app',
-                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-                'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-            }
-        )
-        
+    
     # The `ctx.req` object contains the request data
     if context.req.method == "GET":
         # Send a response with the res object helpers
@@ -58,8 +48,6 @@ def main(context):
 
             return context.res.json({
                 "data": all_data_return
-            }, 200, {
-                'Access-Control-Allow-Origin': 'https://shortener-front-end-ten.vercel.app',
             })
         else:
 
