@@ -5,6 +5,8 @@ import uuid
 
 # This is your Appwrite function
 # It's executed each time we get a request
+
+
 def main(context):
     # Why not try the Appwrite SDK?
     #
@@ -55,10 +57,23 @@ def main(context):
         shortened_url = hashlib.sha256(url_to_shorten.encode()).hexdigest()[:8]
         full_shortened_url = f"{shortened_url}"
 
+        all_data = databases.list_documents(
+            database_id="66694407002556133624",
+            collection_id="666944250024f4a2b507"
+        )
+        for datum in all_data['documents']:
+            if datum.get('hashurl') == full_shortened_url:
+                return context.res.json(
+                    {
+                        "original_url": url_to_shorten,
+                        "shortened_url": full_shortened_url,
+                    }
+                )
+
         result = databases.create_document(
             database_id="66694407002556133624",
             collection_id="666944250024f4a2b507",
-            document_id =  str(uuid.uuid4().hex),
+            document_id=str(uuid.uuid4().hex),
             data={"hashurl": full_shortened_url,
                   "originalurl": url_to_shorten},
         )
