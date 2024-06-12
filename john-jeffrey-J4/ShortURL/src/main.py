@@ -127,7 +127,7 @@ def main(context):
 
         return context.res.json(
             {
-                "data": f'{query_param_str}'
+                "data": "Error in data"
             }
         )
 
