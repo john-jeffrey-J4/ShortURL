@@ -52,10 +52,10 @@ def main(context):
                 all_data_return.append({"original_url": datum.get(
                     'originalurl'), "shortened_url": datum.get('hashurl')})
 
-            return context.res.set_headers({
-                'Access-Control-Allow-Origin': 'https://shortener-front-end-ten.vercel.app',
-            }).json({
+            return context.res.json({
                 "data": all_data_return
+            }, 200, {
+                'Access-Control-Allow-Origin': 'https://shortener-front-end-ten.vercel.app',
             })
         else:
 
