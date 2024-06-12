@@ -27,8 +27,14 @@ def main(context):
         # `ctx.res.send()` dispatches a string back to the client
         return context.res.send("Hello, World!")
     if context.req.method == "POST":
-        context.log(json.dumps(context.req.body.url))
-        return context.res.send("All the request parameters are logged to the Appwrite Console.")
+        req_data = json.dumps(context.req.body)
+        if "url" not in req_data:
+             return context.res.json(
+                {
+                    "error": "URL parameter is missing",
+                },
+            )
+        return context.res.send(req_data['url'])
     
     
 
