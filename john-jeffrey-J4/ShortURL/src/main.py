@@ -38,7 +38,6 @@ def main(context):
             )
         shortened_url = hashlib.sha256(url_to_shorten.encode()).hexdigest()[:8]
         full_shortened_url = f"{shortened_url}"
-        dtype = type(shortened_url)
         
         
         
@@ -46,7 +45,6 @@ def main(context):
             {
                 "original_url": url_to_shorten,
                 "shortened_url": full_shortened_url,
-                "dtype":dtype
             }
         )
 
