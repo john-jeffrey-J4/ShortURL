@@ -43,7 +43,7 @@ def main(context):
             all_data_return = []
             for datum in all_data['documents']:
                 all_data_return.append({"original_url": datum.get(
-                    'originalurl'), "shortened_url": datum.get('originalurl')})
+                    'originalurl'), "shortened_url": datum.get('hashurl')})
 
             return context.res.json({
                 "data": all_data_return
